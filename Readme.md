@@ -13,10 +13,12 @@ Accepts CSVs.
 Or if you are feeling fancy and want to install it to your $PATH and run it from anywhere:
 `go install ./...`
 ## Usage
-`fuzz-factory [-headers=false] [input] [output=output.csv]`
+`fuzz-factory [-d=dictionary.txt][-headers=false] [input] [output=output.csv]`
 
 *flags*
 
+    -d
+        dictionary for random word replacements/additions/substitutions
     -headers
         input file has first row as headers
 

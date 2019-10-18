@@ -2,16 +2,22 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"io"
 	"os"
+	"path/filepath"
 )
 
-const dictionaryPath = "dictionary.txt"
+var dictionaryPath = flag.String("d", "dictionary.txt", "dictionary file for where you want to  ")
 
 var dictionary []string
 
 func loadDictionary() int {
-	f, err := os.Open(dictionaryPath)
+	absDictPath, err := filepath.Abs(*dictionaryPath)
+	if err != nil {
+		panic(err)
+	}
+	f, err := os.Open(absDictPath)
 	if err != nil {
 		panic(err)
 	}
