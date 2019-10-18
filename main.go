@@ -106,14 +106,14 @@ func fuzzFile(filePath string, outputFilePath string, hasHeaders bool) {
 			panic(err)
 		}
 		r := Record{record: record, index: currentRowNum}
+		currentRowNum++
 		// insert header row in without fuzzing
-		if hasHeaders && currentRowNum == 0 {
+		if hasHeaders && currentRowNum == 1 {
 			newRecordChan <- r
 			continue
 		}
 		wg.Add(1)
 		go fuzzRecord(r, newRecordChan, &wg)
-		currentRowNum++
 	}
 	wg.Wait()
 	done <- true
