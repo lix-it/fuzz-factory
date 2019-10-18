@@ -11,3 +11,6 @@ fuzz-factory
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# ignore test files
+*.csv
