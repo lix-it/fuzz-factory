@@ -169,7 +169,7 @@ func generateTypo(record []string, columnsToFuzz []int) []string {
 
 			// shouldWordSubstitute
 			if rand.Intn(2) == 1 {
-				newRecord[index] = substituteRandomCharacter(newRecord[index])
+				newRecord[index] = substituteWordRandom(newRecord[index])
 			}
 			// shouldWordAddtion
 			if rand.Intn(2) == 1 {
