@@ -13,7 +13,7 @@ Accepts CSVs.
 Or if you are feeling fancy and want to install it to your $PATH and run it from anywhere:
 `go install ./...`
 ## Usage
-`fuzz-factory [input] [output=output.csv] [-headers=false]`
+`fuzz-factory [-headers=false] [input] [output=output.csv]`
 
 *flags*
 
