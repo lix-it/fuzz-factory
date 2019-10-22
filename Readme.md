@@ -26,5 +26,6 @@ Or if you are feeling fancy and want to install it to your $PATH and run it from
 
 ## TODO
 - [x] header flag
+- [ ] build the default dictionary into the binary
 - [ ] add a fuzz metric. e.g. Levenshtein distance
 - [ ] Input a desired fuzz factor on the command line and it will achieve that
