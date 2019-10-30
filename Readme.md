@@ -20,7 +20,7 @@ Or if you are feeling fancy and want to install it to your $PATH and run it from
     -d
         dictionary for random word replacements/additions/substitutions
     -headers
-        input file has first row as headers
+        input file has first row as headers that need to be kept without changes
 
 
 
@@ -29,3 +29,4 @@ Or if you are feeling fancy and want to install it to your $PATH and run it from
 - [ ] build the default dictionary into the binary
 - [ ] add a fuzz metric. e.g. Levenshtein distance
 - [ ] Input a desired fuzz factor on the command line and it will achieve that
+- [ ] Set up fuzz-factors for each column independently
