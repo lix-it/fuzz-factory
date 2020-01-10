@@ -34,6 +34,8 @@ func main() {
 }
 
 func fuzzFile(filePath string, outputFilePath string, hasHeaders bool) {
+	// set up random seeding
+	rand.Seed(time.Now().UnixNano())
 	// load the input file
 	absPath, err := filepath.Abs(filePath)
 	if err != nil {
