@@ -8,8 +8,8 @@ import (
 	"math/rand"
 	"os"
 	"path/filepath"
-	"sync"
 	"strconv"
+	"sync"
 	"time"
 )
 
@@ -135,30 +135,20 @@ func fuzzRecord(record Record, resultChan chan Record, wg *sync.WaitGroup, fuzzf
 	defer wg.Done()
 	newRecord := record.record
 	// determine which function classes we should run
-	//shouldTypo := rand.Intn(100000)
-	//shouldTypo := 0
 	shouldTypo := rand.Float64()
-	//probTypo := 0.01
 	probTypo := fuzzfactor
 
-	//shouldAbbreviate := rand.Intn(100000)
-	//shouldAbbreviate := 0
 	shouldAbbreviate := rand.Float64()
-	//probAbbrev := 0.001
 	probAbbrev := fuzzfactor
 	// determine which columns we should fuzz
 	shouldFuzzColumns := []int{}
 	for range newRecord {
 		shouldFuzzColumns = append(shouldFuzzColumns, rand.Intn(2))
-		//shouldFuzzColumns = append(shouldFuzzColumns, 0)
-		//shouldFuzzColumns = append(shouldFuzzColumns, rand.Float64())
 	}
 	// TODO: splitting it up like this is actually quite inefficient...
-	//if shouldTypo == 1 {
 	if shouldTypo < probTypo {
 		newRecord = generateTypo(newRecord, shouldFuzzColumns)
 	}
-	//if shouldAbbreviate == 1 {
 	if shouldAbbreviate < probAbbrev {
 		newRecord = generateAbbreviations(newRecord, shouldFuzzColumns)
 	}
