@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"os"
 	"path/filepath"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -30,10 +31,21 @@ func main() {
 	if flag.Arg(1) != "" {
 		outputFilePath = flag.Arg(1)
 	}
-	fuzzFile(filePath, outputFilePath, *hasHeaders)
+	fuzzfactor := 0.01
+	err := error(nil)
+	if flag.Arg(2) != "" {
+		fuzzfactor, err = strconv.ParseFloat(flag.Arg(2), 64)
+	}
+
+	fmt.Printf("Fuzzfactor is %f\n", fuzzfactor)
+	if err == nil {
+		fmt.Printf("Valid fuzzfactor.")
+	}
+
+	fuzzFile(filePath, outputFilePath, *hasHeaders, fuzzfactor)
 }
 
-func fuzzFile(filePath string, outputFilePath string, hasHeaders bool) {
+func fuzzFile(filePath string, outputFilePath string, hasHeaders bool, fuzzfactor float64) {
 	// set up random seeding
 	rand.Seed(time.Now().UnixNano())
 	// load the input file
@@ -115,29 +127,31 @@ func fuzzFile(filePath string, outputFilePath string, hasHeaders bool) {
 			continue
 		}
 		wg.Add(1)
-		go fuzzRecord(r, newRecordChan, &wg)
+		go fuzzRecord(r, newRecordChan, &wg, fuzzfactor)
 	}
 	wg.Wait()
 	done <- true
 }
 
-func fuzzRecord(record Record, resultChan chan Record, wg *sync.WaitGroup) {
+func fuzzRecord(record Record, resultChan chan Record, wg *sync.WaitGroup, fuzzfactor float64) {
 	defer wg.Done()
 	newRecord := record.record
 	// determine which function classes we should run
-	shouldTypo := rand.Intn(2)
+	shouldTypo := rand.Float64()
+	probTypo := fuzzfactor
 
-	shouldAbbreviate := rand.Intn(2)
+	shouldAbbreviate := rand.Float64()
+	probAbbrev := fuzzfactor
 	// determine which columns we should fuzz
 	shouldFuzzColumns := []int{}
 	for range newRecord {
 		shouldFuzzColumns = append(shouldFuzzColumns, rand.Intn(2))
 	}
 	// TODO: splitting it up like this is actually quite inefficient...
-	if shouldTypo == 1 {
+	if shouldTypo < probTypo {
 		newRecord = generateTypo(newRecord, shouldFuzzColumns)
 	}
-	if shouldAbbreviate == 1 {
+	if shouldAbbreviate < probAbbrev {
 		newRecord = generateAbbreviations(newRecord, shouldFuzzColumns)
 	}
 	resultChan <- Record{
