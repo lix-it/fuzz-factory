@@ -5,10 +5,11 @@ Accepts CSVs.
 ## Requirements
 - Go >= 1.11
 
-## Installation
-*Build*
+## Installation
 
-`go build .`
+### Build
+
+`go build ./...`
 
 Or if you are feeling fancy and want to install it to your $PATH and run it from anywhere:
 `go install ./...`

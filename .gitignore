@@ -4,7 +4,7 @@
 *.dll
 *.so
 *.dylib
-fuzz-factory
+fuzz_factory
 
 # Test binary, build with `go test -c`
 *.test

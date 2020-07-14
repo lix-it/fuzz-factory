@@ -1,3 +1,3 @@
-module github.com/pivigo/fuzz-factory
+module github.com/lix-it/fuzz-factory
 
 go 1.13

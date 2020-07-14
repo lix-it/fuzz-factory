@@ -1,7 +1,7 @@
-package main
+package fuzz
 
 // abbreviates the string to the targetLength including ellipsis
-func abbreviateString(input string, targetLength int) string {
+func AbbreviateString(input string, targetLength int) string {
 	bnoden := input
 	if len(input) > targetLength {
 		if targetLength > 3 {

@@ -1,4 +1,4 @@
-package main
+package fuzz
 
 import (
 	"math/rand"
@@ -6,7 +6,7 @@ import (
 
 const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-func substituteRandomCharacter(input string) string {
+func SubstituteRandomCharacter(input string) string {
 	outputBytes := []byte(input)
 	// get a random character from the input string
 	subCharIndex := rand.Intn(len(outputBytes))
@@ -16,13 +16,13 @@ func substituteRandomCharacter(input string) string {
 	return string(outputBytes)
 }
 
-func addRandomCharacter(input string) string {
+func AddRandomCharacter(input string) string {
 	outputBytes := []byte(input)
 	outputBytes = append(outputBytes, letters[rand.Intn(len(letters))])
 	return string(outputBytes)
 }
 
-func deleteRandomCharacter(input string) string {
+func DeleteRandomCharacter(input string) string {
 	outputBytes := []byte(input)
 	char := rand.Intn(len(outputBytes))
 	// delete
